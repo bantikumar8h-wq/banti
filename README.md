@@ -1,2 +1,136 @@
-# banti
-i am web devloper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Website - Banti Kumar</title>
+  <meta name="description" content="Simple single-file website with navigation, clock, and sample sections." />
+  <style>
+    /* Simple, clean styles */
+    :root{--accent:#0b74de;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.5;margin:0;color:#111}
+    header{background:linear-gradient(90deg,rgba(11,116,222,0.12),transparent);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:white;font-weight:700}
+    nav a{margin-right:12px;text-decoration:none;color:var(--accent);font-weight:600}
+    .clock{font-weight:700;font-family:monospace}
+    main{max-width:1000px;margin:28px auto;padding:0 18px}
+    .hero{padding:28px;border-radius:12px;background:#f7f9fc;box-shadow:0 6px 20px rgba(15,30,60,0.04)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+    .card{padding:16px;border-radius:10px;background:white;box-shadow:0 6px 18px rgba(12,24,48,0.04)}
+    footer{padding:20px;text-align:center;color:var(--muted);font-size:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+    form{display:grid;gap:8px}
+    input,textarea{padding:8px;border-radius:6px;border:1px solid #ddd}
+    @media (max-width:520px){header{padding:12px} .brand span{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">BK</div>
+      <div>
+        <div style="font-weight:700">Banti Kumar</div>
+        <div style="font-size:12px;color:var(--muted)">Student / Web curious</div>
+      </div>
+    </div>
+
+    <nav aria-label="Main navigation">
+      <a href="https://www.google.com" target="_blank" rel="noopener">Google</a>
+      <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+    </nav>
+
+    <div class="clock" id="clock" aria-live="polite">--:--:--</div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <h1 style="margin:0 0 8px">Welcome to my website</h1>
+      <p style="margin:0;color:var(--muted)">This is a simple single-file HTML template you can edit. It includes navigation, a live clock, a few example sections, and a contact form.</p>
+      <div style="margin-top:12px"><a class="btn" href="#projects">See projects</a></div>
+    </section>
+
+    <section id="about" style="margin-top:20px">
+      <h2>About</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Who am I?</h3>
+          <p>I am <a href="https://www.facebook.com/share/r/1ZpDoSFeJt/">Banti</a> — learning web development and building small projects. Use this template as a starting point for your website.</p>
+        </div>
+        <div class="card">
+          <h3>What you'll find</h3>
+          <ul>
+            <li>Simple pages</li>
+            <li>Links to external sites</li>
+            <li>A working clock in the header</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" style="margin-top:22px">
+      <h2>Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Project A</h3>
+          <p>Short description of project A. Replace this with your own content or links to GitHub, images, etc.</p>
+        </article>
+        <article class="card">
+          <h3>Project B</h3>
+          <p>Short description of project B. Add screenshots or an embedded demo here later.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:22px">
+      <h2>Contact</h2>
+      <div class="card" style="max-width:640px">
+        <form onsubmit="event.preventDefault();alert('Form submission simulated. Replace with server endpoint.');">
+          <label for="name">Name</label>
+          <input id="name" name="name" required placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Write me a message"></textarea>
+
+          <div style="margin-top:8px"><button class="btn" type="submit">Send</button></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Banti Kumar — Built with ❤️</div>
+  </footer>
+
+  <script>
+    // Live clock (HH:MM:SS) in user's locale
+    function updateClock(){
+      const el = document.getElementById('clock');
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,'0');
+      const m = String(now.getMinutes()).padStart(2,'0');
+      const s = String(now.getSeconds()).padStart(2,'0');
+      el.textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 250);
+    updateClock();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple keyboard accessibility: focus first main link with "g" press (example)
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase()==='g'){
+        const a = document.querySelector('nav a');
+        if(a) a.focus();
+      }
+    });
+  </script>
+</body>
+</html>
